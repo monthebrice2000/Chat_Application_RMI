@@ -1,4 +1,4 @@
-package chat_server.single_chat_room;
+package chat_server.multiple_chat_rooms;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;

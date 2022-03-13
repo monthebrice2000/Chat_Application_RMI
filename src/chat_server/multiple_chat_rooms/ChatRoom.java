@@ -1,4 +1,4 @@
-package chat_server.single_chat_room;
+package chat_server.multiple_chat_rooms;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -32,7 +32,7 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
         }
     }
 
-    private void displayWelcomeMsg( IParticipant p, String welcomeMsg ) throws RemoteException {
+    private void displayWelcomeMsg(IParticipant p, String welcomeMsg ) throws RemoteException {
         for( int i=0; i<nextParticipant; i++){
             if( p.name().toString().equals( this.participants[i].name().toString() ) )
                 continue;
@@ -68,7 +68,7 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
         System.out.println( "Participant Name "+ p.name().toString() + " leaves the chat.");
     }
 
-    private void sendGoMsg( IParticipant p, String goMsg ) throws RemoteException {
+    private void sendGoMsg(IParticipant p, String goMsg ) throws RemoteException {
         for( int i=0; i<nextParticipant; i++){
             if( p.name().toString().equals( this.participants[i].name().toString() ) )
                 continue;
@@ -95,7 +95,7 @@ public class ChatRoom extends UnicastRemoteObject implements IChatRoom {
         }
     }
 
-    private void sendMsg( IParticipant p, String anotherMsg ) throws RemoteException {
+    private void sendMsg(IParticipant p, String anotherMsg ) throws RemoteException {
         for( int i=0; i<nextParticipant; i++){
             /*if( p.name().toString().equals( this.participants[i].name().toString() ) )
                 continue;*/

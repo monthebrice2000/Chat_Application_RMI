@@ -8,15 +8,17 @@ import java.util.Scanner;
 
 public class Client {
 
+    static Registry registry;
+
     public static void main( String[] argv ) throws RemoteException, NotBoundException {
 
         if( argv.length != 6){
             throw new RemoteException("Please Enter a valid arguments like : -h localhost -p 3003 -u brice");
         }
-        Registry registry = LocateRegistry.getRegistry(argv[1], Integer.parseInt(argv[3]));
+        registry = LocateRegistry.getRegistry(argv[1], Integer.parseInt(argv[3]));
         IChatRoom chatRoom = null;
-        IParticipant participant = null;
-        //(IParticipant) registry.lookup("pt");
+        IParticipant participant = new Participant( argv[5].toString().trim().toUpperCase()  );
+        registry.rebind("pt", participant);
         String response = null;
         boolean exit = false;
         boolean exit_from_chat = false;
@@ -30,8 +32,7 @@ public class Client {
             switch ( responseChatName.toLowerCase() ){
                 case "pi4" :
                     chatRoom = ( IChatRoom ) registry.lookup("cr");
-                    //participant.setParticipantName( argv[5].toString().trim().toUpperCase() );
-                    participant = chatRoom.connect( argv[5].toString().trim().toUpperCase() );
+                    chatRoom.connect( participant );
                     System.out.println("You are connected to "+ chatRoom.name());
                     while( !exit_from_chat ){
                         System.out.println("Select one option below : ");
@@ -67,7 +68,7 @@ public class Client {
                                 System.out.println("My Name is : " + participant.name() );
                                 break;
                             default:
-                                System.out.println("You write a wrong chat room name, Retry!!!");
+                                System.out.println("You write a wrong option, Retry!!!");
                         }
                     }
                     exit_from_chat = false;
@@ -77,7 +78,7 @@ public class Client {
                     System.out.println("You are existing all the application");
                     break;
                 default:
-                    System.out.println("You write a wrong chat room name, Retry!!!");
+                    System.out.println("You write a wrong option, Retry!!!");
             }
         }
 

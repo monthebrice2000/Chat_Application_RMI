@@ -6,6 +6,8 @@ import java.rmi.registry.Registry;
 
 public class Server {
 
+    static Registry registry ;
+
     public static void main( String[] argv ) throws RemoteException {
 
         if( argv.length != 6){
@@ -13,7 +15,8 @@ public class Server {
         }
         IChatRoom chatRoom = new ChatRoom(Integer.parseInt(argv[3]), argv[5] );
         //IChatRoom chatRoom = new ChatRoom(3003, "Polytech Info 4" );
-        Registry registry = LocateRegistry.createRegistry(Integer.parseInt(argv[3]));
+        registry = LocateRegistry.createRegistry(Integer.parseInt(argv[3]));
+        //System.out.println( registry );
         registry.rebind("cr", chatRoom );
         System.out.println("+++++++++ Server is looking for another invocation +++++++++");
 
